@@ -4,6 +4,13 @@ var SpotifyWebApi = require('spotify-web-api-node');
 
 var spotifyApi;
 
+var credentials = {
+    clientId: '5f2ea699b7a548f68001465a874ef9f0',
+    redirectUri: 'http://localhost:2567'
+};
+
+spotifyApi = new SpotifyWebApi(credentials);
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index', {title: 'Oort'});
@@ -28,13 +35,6 @@ router.get('/playlists', function (req, res, next) {
             spotifyApi.setAccessToken(data.body['access_token']);
             spotifyApi.setRefreshToken(data.body['refresh_token']);
 
-            spotifyApi.getMe()
-                .then(function(data) {
-                    console.log('Some information about the authenticated user', data.body);
-                }, function(err) {
-                    console.log('Something went wrong!', err);
-                });
-
             spotifyApi.getUserPlaylists()
                 .then(function(data) {
                     console.log('Retrieved playlists', data.body);
@@ -53,15 +53,6 @@ router.get('/playlists', function (req, res, next) {
         }
     );
 
-/*
-    spotifyApi.getUserPlaylists(spotifyApi.getMe())
-        .then(function(data) {
-            console.log('Retrieved playlists', data.body);
-        },function(err) {
-            console.log('Something went wrong!', err);
-        });
-     */
-
 
 });
 
@@ -69,12 +60,7 @@ router.get('/spotify', function (req, res, next) {
     //res.render('index', {title: 'Oort'});
 
     var scopes = ['playlist-read-private'];
-    var credentials = {
-        clientId: '5f2ea699b7a548f68001465a874ef9f0',
-        redirectUri: 'http://localhost:2567/playlists'
-    };
 
-    spotifyApi = new SpotifyWebApi(credentials);
 
 // Create the authorization URL
     var authorizeURL = spotifyApi.createAuthorizeURL(scopes);
