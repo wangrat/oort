@@ -46,10 +46,18 @@ router.get('/', function (req, res) {
       */
 
     if (room_id) {
-        res.send(getSongDataByRoomId(room_id))
+        //res.send(getSongDataByRoomId(room_id))
+
+        getSongRooms().then(function (returndata) {
+            //received data!
+            res.send(returndata);
+        });
     }
     else {
-        res.send("");
+        getSongRooms().then(function (returndata) {
+            //received data!
+            res.send(returndata);
+        });
     }
 
 });
@@ -60,13 +68,25 @@ function saveDictToPublicFolder(fileData, callback) {
 }
 
 var songData;
-function getSongDataByRoomId(roomID) {
+function getSongRooms() {
+
+
+    return doAsync(fs).readFile('./public/file.json')
+        .then(function (data) {
+            //return data;
+            //console.log(data);
+            return data;
+        });
+
+
     //fs.readFile('./public/file.json', handleFile);
     //var songData;
     /*
     doAsync(fs).readFile('./public/file.json')
       .then((data) => console.log(JSON.parse(data)));
       */
+
+    /*
 
     doAsync(fs).readFile('./public/file.json')
         .then((data) => songData = JSON.parse(data));
@@ -78,9 +98,13 @@ function getSongDataByRoomId(roomID) {
         return songData[roomID];
         //JSON.stringify(songData[roomID], null, 4)
     }
-
-
-    //return songData;
+    else {
+        return "";
+    }
+    */
 }
+
+
+
 
 module.exports = router;
