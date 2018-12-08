@@ -37,12 +37,14 @@ router.get('/playlists', function (req, res, next) {
                     res.render('playlists', {title: 'Playlists', names: names});
                 },function(err) {
                     console.log('Something went wrong!', err);
+                    res.redirect('/');
                 });
 
 
         },
         function (err) {
             console.log('Something went wrong!', err);
+            res.redirect('/');
         }
     );
 
