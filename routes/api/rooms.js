@@ -72,10 +72,11 @@ function getSongDataByRoomId(roomID) {
         .then((data) => songData = JSON.parse(data));
 
 
-    console.log(songData);
-    console.log(roomID);
+    console.log(songData[roomID]);
+    //console.log(roomID);
     if (songData[roomID]) {
         return songData[roomID];
+        //JSON.stringify(songData[roomID], null, 4)
     }
 
 
