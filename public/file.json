@@ -1,0 +1,20 @@
+{
+    "id": "4",
+    "songs": [
+        {
+            "name": "despacito",
+            "artist": "spanish man",
+            "votes": 15
+        },
+        {
+            "name": "screaming in the eternal void",
+            "artist": "me",
+            "votes": -1
+        },
+        {
+            "name": "pls stop calling me 'daddy'",
+            "artist": "kolling",
+            "votes": 3
+        }
+    ]
+}

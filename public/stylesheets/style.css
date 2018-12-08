@@ -6,3 +6,22 @@ body {
 a {
   color: #00B7FF;
 }
+
+body {
+    background-image: url("../res/space.jpg");
+    background-repeat: repeat;
+}
+
+html *
+{
+   color: #FFFF66 !important;
+   font-family: "Comic Sans MS", cursive, sans-serif	 !important;   
+}
+
+h1 {
+  text-align: middle;
+}
+
+p {
+  text-align: middle;
+}
