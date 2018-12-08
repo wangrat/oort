@@ -4,13 +4,6 @@ var SpotifyWebApi = require('spotify-web-api-node');
 
 var spotifyApi;
 
-var credentials = {
-    clientId: '5f2ea699b7a548f68001465a874ef9f0',
-    redirectUri: 'http://localhost:2567'
-};
-
-spotifyApi = new SpotifyWebApi(credentials);
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index', {title: 'Oort'});
@@ -61,6 +54,12 @@ router.get('/spotify', function (req, res, next) {
 
     var scopes = ['playlist-read-private'];
 
+    var credentials = {
+        clientId: '5f2ea699b7a548f68001465a874ef9f0',
+        redirectUri: 'http://' + req.hostname + ':2567/playlists'
+    };
+
+    spotifyApi = new SpotifyWebApi(credentials);
 
 // Create the authorization URL
     var authorizeURL = spotifyApi.createAuthorizeURL(scopes);
