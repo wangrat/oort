@@ -56,9 +56,9 @@ function updateRoomWithVote(roomID, songID, voteDelta) {
 
     songs.sort(compare);
 
-    songsURI = songs.map(s => 'spotify:track:' + songs.songID)
+    songsURI = songs.map(s => 'spotify:track:' + s.songID)
 
-    spotify.spotifyApi.replaceTracksInPlaylist(songs[0].playlistID, songsURI)
+    spotify.spotifyApi.replaceTracksInPlaylist(songs[0].playlistsID, songsURI)
         .then(function (data) {
             console.log("replaced!!!")
         }, function (err) {
