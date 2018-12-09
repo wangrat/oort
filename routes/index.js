@@ -68,5 +68,17 @@ router.get('/spotify', function (req, res, next) {
     res.redirect(authorizeURL);
 });
 
+router.get('/playlists/:id', function (req, res, next) {
+    spotifyApi.getPlaylist(req.params.id)
+        .then(function(data) {
+            console.log('Some information about this playlist', data.body);
+
+
+
+        }, function(err) {
+            console.log('Something went wrong!', err);
+        });
+});
+
 
 module.exports = router;
