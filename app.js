@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/rooms', roomsRouter);
 app.use('/api/sendvotes', sendVotesRouter);
-app.use('/voting/voting', votingRouter);
+app.use('/voting', votingRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
