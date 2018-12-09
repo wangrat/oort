@@ -56,7 +56,7 @@ router.get('/spotify', function (req, res, next) {
 
   var credentials = {
     clientId: '5f2ea699b7a548f68001465a874ef9f0',
-    redirectUri: 'http://localhost:2567/playlists'
+    redirectUri: 'http://' + req.hostname + ':' + req.socket.localPort + '/playlists'
   };
 
   spotifyApi = new SpotifyWebApi(credentials);
