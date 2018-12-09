@@ -26,10 +26,11 @@ p {
   text-align: middle;
 }
 
-.button {
+button {
   background-color: #666666; /* Green */
   border: none;
   color: white;
+  border-color: #000000;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
