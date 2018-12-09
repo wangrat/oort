@@ -3,6 +3,8 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+/* Start http://www.cursors-4u.com  * {cursor: url(http://cur.cursors-4u.net/mechanics/mec-1/mec5.cur), auto !important;} /* End http://www.cursors-4u.com */
+/* Start http://www.cursors-4u.com */ * {cursor: url(http://cur.cursors-4u.net/mechanics/mec-1/mec11.cur), auto !important;} /* End http://www.cursors-4u.com */
 a {
   color: #00B7FF;
 }
@@ -26,14 +28,15 @@ p {
   text-align: middle;
 }
 
-button {
-  background-color: #666666; /* Green */
-  border: none;
-  color: white;
-  border-color: #000000;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+button{
+  font-size:20px;
+  outline:2px solid #000000;
+  background:#C0C0C0;
+  border-width:1px;
+  border-style:solid;
+  border-color:#FFFFFF #808080 #808080 #FFFFFF;
+  padding:4px 10px;
+  margin:20px auto 3px;
+  display:block;
+  bottom:0px;
 }

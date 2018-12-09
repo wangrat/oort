@@ -13,6 +13,8 @@ router.get('/', function (req, res, next) {
         "songID": song_id,
         "voteDelta": voteIncrement
     }
+
+    console.log(inQueries);
     res.send(JSON.stringify(inQueries, null, 4));
 
 
