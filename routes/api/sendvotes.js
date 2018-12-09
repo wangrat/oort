@@ -3,6 +3,9 @@ var router = express.Router();
 var fs = require('fs');
 const doAsync = require('doasync');
 
+var storage = require('./../storage.js')
+
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
@@ -15,31 +18,32 @@ router.get('/', function (req, res, next) {
         "songID": song_id,
         "voteDelta": voteIncrement
     }
+    //console.log(inQueries);
 
-    console.log(inQueries);
+    updateRoomWithVote(room_id, song_id, voteIncrement);
 
-    updateRoomWithVote()
+    //console.log(getSongRooms());
+    //var songRooms = getSongRooms();
+    //console.log(songRooms);
 
-    res.send(JSON.stringify(inQueries, null, 4));
+    //songRooms.then(function (result) {
+    //    console.log(result);
+    //});
+    res.send(storage.rooms[room_id][song_id]);
+    //res.send("sent");
 
-
-    //res.send(req.param('id'));
-
-
+    //console.log(storage.rooms[room_id]);
 });
 
 function updateRoomWithVote(roomID, songID, voteDelta) {
-    getSongRooms().then(function (returndata) {
-        //received data!
-        res.send(returndata);
-    });
-
+    voteDelta = Number(voteDelta)
+    console.log(storage.rooms[roomID][songID]["votes"]);
+    storage.rooms[roomID][songID]["votes"] += voteDelta;
+    console.log(storage.rooms[roomID][songID]["votes"]);
+    storage.onChange = 1;
 }
 
-var songData;
 function getSongRooms() {
-
-
     return doAsync(fs).readFile('./public/file.json')
         .then(function (data) {
             //return data;
@@ -47,6 +51,5 @@ function getSongRooms() {
             return data;
         });
 }
-
 
 module.exports = router;

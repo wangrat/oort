@@ -11,10 +11,13 @@ block content
         h1 Room ID = #{roomID}
 
       each element in songLists
-        p #{element.track.name}
+        p #{element.name} #{element.votes}
 
     img.className#IdName(src="./res/clippy.gif" alt="Image Title")
   script.
+
+    //setTimeout(function () { location.reload(true); }, 4000);
+
     // <![CDATA[
     var colour="#FFFFFF";
     var sparkles=120;

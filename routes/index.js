@@ -2,11 +2,18 @@ var express = require('express');
 var router = express.Router();
 var SpotifyWebApi = require('spotify-web-api-node');
 var fs = require('fs');
+var storage = require('./storage.js')
+//ar apps = require('./app.js')
 
 var spotifyApi;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  var name = storage.name;
+  console.log(name);
+  storage.name = "changed"
+  console.log(name);
+
   res.render('index', { title: 'Oort' });
 });
 
@@ -17,6 +24,7 @@ router.get('/playlists', function (req, res, next) {
     clientSecret: '80fba228fc5b4a8397f2462ea6f7cbf8',
     clientId: '5f2ea699b7a548f68001465a874ef9f0'
   });
+
 
   // Retrieve an access token and a refresh token
   spotifyApi.authorizationCodeGrant(code).then(
@@ -74,40 +82,89 @@ router.get('/playlists/:id', function (req, res, next) {
     .then(function (data) {
       console.log('Some information about this playlist', data.body.tracks.items[0]);
 
-      var room_id = 0;
+      var forStorage = {}
 
-      forStorage = data.body.tracks.items.map(song => {return {
-            "songID": song.track.id,
-            "name": song.track.name,
-            "artist": song.track.artists[0].name,
-            "votes": 0
-      }});
+      data.body.tracks.items.forEach(song => {
+        forStorage[song.track.id] = {
+          "name": song.track.name,
+          "artist": song.track.artists[0].name,
+          "votes": 0
+        }
+      })
 
       var id = Math.floor(100000 + Math.random() * 900000).toString();
 
-      roomObject = {
-          id: forStorage
-      };
+      roomObject = {};
+      roomObject[id] = forStorage;
 
-        saveDictToPublicFolder(roomObject, function (err) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            console.log("Saved File");
-        });
+      storage.rooms = roomObject;
 
-      res.render('voting', { title: 'Oort', roomID: room_id, songLists: data.body.tracks.items });
+
+      /*
+      saveDictToPublicFolder(roomObject, function (err) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log("Saved File");
+      });
+      */
+
+      res.redirect('/rooms/' + id)
 
     }, function (err) {
       console.log('Something went wrong!', err);
     });
 });
 
+router.get('/rooms/:id', function (req, res, next) {
+  console.log(roomObject);
+
+  currentRoomSongs = storage.rooms[req.params.id]
+
+  songs = []
+
+  for (var key in currentRoomSongs) {
+    // check if the property/key is defined in the object itself, not in parent
+    if (currentRoomSongs.hasOwnProperty(key)) {
+      songs.push(currentRoomSongs[key])
+    }
+  }
+
+  songs.sort(compare);
+  console.log(songs);
+
+  res.render('voting', { title: 'Oort', roomID: req.params.id, songLists: songs });
+
+  //while (storage.onChange == 0) { };
+  //storage.onChange = 0;
+  //res.redirect('back');
+
+  idx = setInterval(function () {
+    if (storage.onChange == 1) { // I guess you wanted a check for STATUS instead of VAR
+      return clearInterval(idx);
+    }
+  }, 3000); // the interval when to call the function again 3000ms = 3sek
+  storage.onChange = 0;
+  res.redirect('back');
+
+});
+
+/*
 function saveDictToPublicFolder(fileData, callback) {
-    fs.writeFile('./public/file.json', JSON.stringify(fileData, null, 4), callback);
+  fs.writeFile('./public/file.json', JSON.stringify(fileData, null, 4), callback);
 
 }
+*/
+
+function compare(a, b) {
+  if (a.votes < b.votes)
+    return 1;
+  if (a.votes > b.votes)
+    return -1;
+  return 0;
+}
+
 
 
 module.exports = router;

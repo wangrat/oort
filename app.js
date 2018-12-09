@@ -4,12 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 var indexRouter = require('./routes/index');
 var roomsRouter = require('./routes/api/rooms')
 var sendVotesRouter = require('./routes/api/sendvotes')
 var votingRouter = require('./routes/voting/voting')
 
 //var starWars = require('.public/starwars.mid')
+
+var rooms = {};
 
 var app = express();
 
@@ -44,4 +47,5 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
+//module.exports = { "app": app, "rooms": rooms };
 module.exports = app;
