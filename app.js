@@ -9,6 +9,8 @@ var roomsRouter = require('./routes/api/rooms')
 var sendVotesRouter = require('./routes/api/sendvotes')
 var votingRouter = require('./routes/voting/voting')
 
+//var starWars = require('.public/starwars.mid')
+
 var app = express();
 
 // view engine setup

@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+const doAsync = require('doasync');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -15,6 +17,9 @@ router.get('/', function (req, res, next) {
     }
 
     console.log(inQueries);
+
+    updateRoomWithVote()
+
     res.send(JSON.stringify(inQueries, null, 4));
 
 
@@ -22,5 +27,26 @@ router.get('/', function (req, res, next) {
 
 
 });
+
+function updateRoomWithVote(roomID, songID, voteDelta) {
+    getSongRooms().then(function (returndata) {
+        //received data!
+        res.send(returndata);
+    });
+
+}
+
+var songData;
+function getSongRooms() {
+
+
+    return doAsync(fs).readFile('./public/file.json')
+        .then(function (data) {
+            //return data;
+            //console.log(data);
+            return data;
+        });
+}
+
 
 module.exports = router;
