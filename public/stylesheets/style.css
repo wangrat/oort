@@ -40,6 +40,7 @@ button{
   margin:20px auto 3px;
   display:block;
   bottom:0px;
+  left:0;
 }
 
 .trail { /* className for the trail elements */
