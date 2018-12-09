@@ -40,3 +40,12 @@ button{
   display:block;
   bottom:0px;
 }
+
+.trail { /* className for the trail elements */
+    position: absolute;
+    height: 6px; width: 6px;
+    border-radius: 3px;
+    background: lightyellow;
+    pointer-events: none;
+
+  }
