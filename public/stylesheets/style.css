@@ -51,3 +51,9 @@ button{
     pointer-events: none;
 
   }
+
+  *
+{
+text-align: center !important;
+margin: auto !important;
+}
