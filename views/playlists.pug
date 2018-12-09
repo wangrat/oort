@@ -5,4 +5,4 @@ block content
   p Welcome to #{title}
 
   each element in names
-    p #{element}
+    button(type='button' class=' c-btn-blue c-btn-circle c-btn-uppercase' value="Read More" onclick='gotoBlog(' + element.id + ')') #{element.name}
