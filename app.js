@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var roomsRouter = require('./routes/api/rooms')
+var sendVotesRouter = require('./routes/api/sendvotes')
 var votingRouter = require('./routes/voting/voting')
 
 var app = express();
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/rooms', roomsRouter);
+app.use('/api/sendvotes', sendVotesRouter);
 app.use('/voting/voting', votingRouter);
 
 // catch 404 and forward to error handler
