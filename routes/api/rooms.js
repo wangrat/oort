@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
+
 const doAsync = require('doasync');
 
 // routes will go here
@@ -23,15 +23,9 @@ router.get('/', function (req, res) {
         ]
     };
 
-    /*
-    saveDictToPublicFolder(songData, function (err) {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log("Saved File");
-    });
-    */
+
+
+
     /*
     
       if (room_id) {
@@ -62,10 +56,7 @@ router.get('/', function (req, res) {
 
 });
 
-function saveDictToPublicFolder(fileData, callback) {
-    fs.writeFile('./public/file.json', JSON.stringify(fileData, null, 4), callback);
 
-}
 
 var songData;
 function getSongRooms() {
