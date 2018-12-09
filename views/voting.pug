@@ -7,12 +7,13 @@ block content
       title= "Spotify Voting"
     body
       h1 Spotify Voting Page!
+      h2 #{currentSong}
       #container.col
         h1 Room ID = #{roomID}
 
       <br>
       each element in songLists
-        p #{element.name}  |  Votes: #{element.votes}
+        p #{element.name} - #{element.artist}  |  Votes: #{element.votes}
 
   script.
 
