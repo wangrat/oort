@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var SpotifyWebApi = require('spotify-web-api-node');
+var fs = require('fs');
 
 var spotifyApi;
 
@@ -71,11 +72,30 @@ router.get('/spotify', function (req, res, next) {
 router.get('/playlists/:id', function (req, res, next) {
   spotifyApi.getPlaylist(req.params.id)
     .then(function (data) {
-      console.log('Some information about this playlist', data.body.tracks.items);
+      console.log('Some information about this playlist', data.body.tracks.items[0]);
 
       var room_id = 0;
 
+      forStorage = data.body.tracks.items.map(song => {return {
+            "songID": song.track.id,
+            "name": song.track.name,
+            "artist": song.track.artists[0].name,
+            "votes": 0
+      }});
 
+      var id = Math.floor(100000 + Math.random() * 900000).toString();
+
+      roomObject = {
+          id: forStorage
+      };
+
+        saveDictToPublicFolder(roomObject, function (err) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log("Saved File");
+        });
 
       res.render('voting', { title: 'Oort', roomID: room_id, songLists: data.body.tracks.items });
 
@@ -83,6 +103,11 @@ router.get('/playlists/:id', function (req, res, next) {
       console.log('Something went wrong!', err);
     });
 });
+
+function saveDictToPublicFolder(fileData, callback) {
+    fs.writeFile('./public/file.json', JSON.stringify(fileData, null, 4), callback);
+
+}
 
 
 module.exports = router;
