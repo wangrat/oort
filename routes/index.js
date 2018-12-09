@@ -32,9 +32,7 @@ router.get('/playlists', function (req, res, next) {
                 .then(function(data) {
                     console.log('Retrieved playlists', data.body);
 
-                    var names = data.body.items.map(i => i.name);
-
-                    res.render('playlists', {title: 'Playlists', names: names});
+                    res.render('playlists', {title: 'Playlists', names: data.body.items});
                 },function(err) {
                     console.log('Something went wrong!', err);
                     res.redirect('/');
