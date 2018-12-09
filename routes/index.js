@@ -71,9 +71,13 @@ router.get('/spotify', function (req, res, next) {
 router.get('/playlists/:id', function (req, res, next) {
     spotifyApi.getPlaylist(req.params.id)
         .then(function(data) {
-            console.log('Some information about this playlist', data.body);
+            console.log('Some information about this playlist', data.body.tracks.items);
+
+            var room_id = 0;
 
 
+
+            res.render('voting', { title: 'Oort', roomID: room_id, songLists: data.body.tracks.items });
 
         }, function(err) {
             console.log('Something went wrong!', err);
