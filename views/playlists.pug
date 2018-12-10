@@ -5,5 +5,7 @@ block content
   p Welcome to #{title}
 
   each element in names
+    <br>
     form(action='/playlists/' + element.id method='get')
       button(type='submit') #{element.name}
+    
