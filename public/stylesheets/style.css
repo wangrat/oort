@@ -17,7 +17,7 @@ body {
 
 html *
 {
-   color: #FFFF66 !important;
+   color: #FFFF66;  /*!important;*/
    font-family: "Comic Sans MS", cursive, sans-serif	 !important;   
 }
 
@@ -30,14 +30,15 @@ p {
 }
 
 button{
-  font-size:20px;
-  outline:2px solid #000000;
-  background:#C0C0C0;
-  border-width:1px;
+  font-size:18px;
+  color: #FFFF66;
+  outline:0px solid #000000;
+  background:#BCB7B7;
+  border-width:2px;
   border-style:solid;
-  border-color:#FFFFFF #808080 #808080 #FFFFFF;
-  padding:4px 10px;
-  margin:20px auto 3px;
+  border-color:#FFFFFF #404040 #404040 #FFFFFF;
+  padding:4px 8px;
+  margin:10px auto 3px;
   display:block;
   bottom:0px;
   left:0;
