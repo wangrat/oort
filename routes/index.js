@@ -42,10 +42,12 @@ router.get('/playlists', function (req, res, next) {
       spotify.spotifyApi.setRefreshToken(data.body['refresh_token']);
 
       var userID = '';
+      var userName = '';
       spotify.spotifyApi.getMe().then(function (data) {
         //console.log("User Info:", data.body);
-        console.log("User info:", data.body.display_name, data.body.id)
+        console.log("User info:", data.body.display_name, "ID:", data.body.id)
         userID = data.body.id;
+        userName = data.body.display_name;
 
       }, function (err) {
         console.log('Something went wrong!', err);
@@ -91,7 +93,7 @@ router.get('/playlists', function (req, res, next) {
 
       playlistFetch.then(function (pfetch) {
         console.log("Found", pfetch.length, "editable playlists total- collaborative, or owned by ID", userID);
-        res.render('playlists', { title: 'Playlists', names: pfetch, user_id: userID });
+        res.render('playlists', { title: 'Playlists', names: pfetch, user_id: userID, user_name: userName });
       });
 
     },
