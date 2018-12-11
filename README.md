@@ -1,3 +1,9 @@
-# Oort - Democratic (and 90s themed) Spotify playlist manager for parties!
-HackKings 5.0 (2018) - 1st Place: American Express Challenge
-                       2nd Place: Loop Challenge 
+
+# Oort - Democratic Spotify Playlists for Parties!
+Oort is a democratic (and 90s themed) Spotify playlist manager for parties!
+[ oort.herokuapp.com
+](http://oort.herokuapp.com)
+Winner *HackKings 5.0 (2018) -* 
+ -  **1st Place:** American Express Challenge
+ -  **2nd Place:** Loop Social App Challenge 
+
