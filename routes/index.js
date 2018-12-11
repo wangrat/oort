@@ -41,15 +41,43 @@ router.get('/playlists', function (req, res, next) {
       spotify.spotifyApi.setAccessToken(data.body['access_token']);
       spotify.spotifyApi.setRefreshToken(data.body['refresh_token']);
 
+      var userID = '';
+      spotify.spotifyApi.getMe().then(function (data) {
+        console.log("User Info:", data.body);
+        userID = data.body.id;
+
+      }, function (err) {
+        console.log('Something went wrong!', err);
+        res.redirect('/');
+      });
+
       spotify.spotifyApi.getUserPlaylists()
         .then(function (data) {
           console.log('Retrieved playlists', data.body);
 
-          for (var item in data.body) {
-            console.log("Item:", item);
+          var playlistListing = [];
+
+          //console.log("Items", data.body.items);
+          for (var i in data.body.items) {
+            //console.log("Owner Data:", data.body.items[i].owner);
+            var ownerID = data.body.items[i].owner.id;
+            if (ownerID == userID) {
+              console.log("Owned by current user!:", data.body.items[i].name);
+              playlistListing.push(data.body.items[i]);
+            }
+            else if (data.body.items[0].collaborative) {
+              console.log("Playlist is Collaborative!:", data.body.items[i].name);
+              playlistListing.push(data.body.items[i]);
+            }
+            else {
+              //console.log("ID:", ownerID, ":", data.body.items[i].name);
+            }
           }
 
-          res.render('playlists', { title: 'Playlists', names: data.body.items });
+
+          res.render('playlists', { title: 'Playlists', names: playlistListing, user_id: userID });
+
+          //res.render('playlists', { title: 'Playlists', names: data.body.items, user_id: userID });
         }, function (err) {
           console.log('Something went wrong!', err);
           res.redirect('/');
@@ -90,7 +118,7 @@ router.get('/playlists/:id', function (req, res, next) {
     .then(function (data) {
       console.log('Some information about this playlist', data.body.tracks.items[0]);
 
-      var forStorage = {}
+      var forStorage = {};
 
       data.body.tracks.items.forEach(song => {
         forStorage[song.track.id] = {
@@ -154,7 +182,7 @@ router.get('/rooms/:id', function (req, res, next) {
             currentRoomSongs[key].votes = 0;
           }
 
-          songs.push(currentRoomSongs[key])
+          songs.push(currentRoomSongs[key]);
         }
       }
 
