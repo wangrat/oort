@@ -43,7 +43,8 @@ router.get('/playlists', function (req, res, next) {
 
       var userID = '';
       spotify.spotifyApi.getMe().then(function (data) {
-        console.log("User Info:", data.body);
+        //console.log("User Info:", data.body);
+        console.log("User info:", data.body.display_name, data.body.id)
         userID = data.body.id;
 
       }, function (err) {
@@ -51,10 +52,13 @@ router.get('/playlists', function (req, res, next) {
         res.redirect('/');
       });
 
-      spotify.spotifyApi.getUserPlaylists()
-        .then(function (data) {
-          console.log('Retrieved playlists', data.body);
+      var playlistListingAll = [];
 
+
+      var playlistFetch = spotify.spotifyApi.getUserPlaylists({ limit: 50, offset: 50 })
+        .then(function (data) {
+          //console.log('Retrieved playlists', data.body);
+          console.log('Retrieved', data.body.items.length, 'playlists.')
           var playlistListing = [];
 
           //console.log("Items", data.body.items);
@@ -62,20 +66,21 @@ router.get('/playlists', function (req, res, next) {
             //console.log("Owner Data:", data.body.items[i].owner);
             var ownerID = data.body.items[i].owner.id;
             if (ownerID == userID) {
-              console.log("Owned by current user!:", data.body.items[i].name);
+              //console.log("Owned by current user!:", data.body.items[i].name);
               playlistListing.push(data.body.items[i]);
             }
             else if (data.body.items[0].collaborative) {
-              console.log("Playlist is Collaborative!:", data.body.items[i].name);
+              //console.log("Playlist is Collaborative!:", data.body.items[i].name);
               playlistListing.push(data.body.items[i]);
             }
             else {
-              //console.log("ID:", ownerID, ":", data.body.items[i].name);
+              //console.log("ID:", ownerID, ":", data.body.items[i]);
             }
+
           }
-
-
-          res.render('playlists', { title: 'Playlists', names: playlistListing, user_id: userID });
+          console.log("Found", playlistListing.length, "editable playlists - collaborative, or owned by ID", userID);
+          //res.render('playlists', { title: 'Playlists', names: playlistListing, user_id: userID });
+          return playlistListing;
 
           //res.render('playlists', { title: 'Playlists', names: data.body.items, user_id: userID });
         }, function (err) {
@@ -83,6 +88,11 @@ router.get('/playlists', function (req, res, next) {
           res.redirect('/');
         });
 
+
+      playlistFetch.then(function (pfetch) {
+        console.log("Found", pfetch.length, "editable playlists total- collaborative, or owned by ID", userID);
+        res.render('playlists', { title: 'Playlists', names: pfetch, user_id: userID });
+      });
 
     },
     function (err) {
