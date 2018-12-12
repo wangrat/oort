@@ -4,21 +4,26 @@ body {
 }
 
 /* Start http://www.cursors-4u.com  * {cursor: url(http://cur.cursors-4u.net/mechanics/mec-1/mec5.cur), auto !important;} /* End http://www.cursors-4u.com */
-/* Start http://www.cursors-4u.com */ * {cursor: url(http://cur.cursors-4u.net/mechanics/mec-1/mec11.cur), auto !important;} /* End http://www.cursors-4u.com */
+/* Start http://www.cursors-4u.com */
+* {
+  cursor: url(http://cur.cursors-4u.net/mechanics/mec-1/mec11.cur), auto !important;
+}
+
+/* End http://www.cursors-4u.com */
 a {
   color: #00B7FF;
 }
 
 body {
   background-color: #000000;
-    background-image: url("../res/space.jpg");
-    background-repeat: repeat;
+  background-image: url("../res/space.jpg");
+  background-repeat: repeat;
 }
 
-html *
-{
-   color: #FFFF66;  /*!important;*/
-   font-family: "Comic Sans MS", cursive, sans-serif	 !important;   
+html * {
+  color: #FFFF00;
+  /*!important;*/
+  font-family: "Comic Sans MS", cursive, sans-serif !important;
 }
 
 h1 {
@@ -29,32 +34,67 @@ p {
   text-align: middle;
 }
 
-button{
-  font-size:18px;
-  color: #FFFF66;
-  outline:0px solid #000000;
-  background:#BCB7B7;
-  border-width:2px;
-  border-style:solid;
-  border-color:#FFFFFF #404040 #404040 #FFFFFF;
-  padding:4px 8px;
-  margin:10px auto 3px;
-  display:block;
-  bottom:0px;
-  left:0;
+button {
+  font-size: 18px;
+  outline: 0px solid #000000;
+  background: #BCB7B7;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #FFFFFF #404040 #404040 #FFFFFF;
+  padding: 4px 8px;
+  margin: 10px auto 3px;
+  display: block;
+  bottom: 0px;
+  left: 0;
 }
 
-.trail { /* className for the trail elements */
-    position: absolute;
-    height: 6px; width: 6px;
-    border-radius: 3px;
-    background: lightyellow;
-    pointer-events: none;
+.trail {
+  /* className for the trail elements */
+  position: absolute;
+  height: 6px;
+  width: 6px;
+  border-radius: 3px;
+  background: lightyellow;
+  pointer-events: none;
 
+}
+
+* {
+  text-align: center !important;
+  margin: auto !important;
+}
+
+
+.marquee {
+  height: 25px;
+  width: 420px;
+
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee div {
+  display: block;
+  width: 200%;
+  height: 30px;
+
+  position: absolute;
+  overflow: hidden;
+
+  animation: marquee 10s linear infinite;
+}
+
+.marquee span {
+  float: left;
+  width: 50%;
+}
+
+@keyframes marquee {
+  0% {
+    left: 0;
   }
 
-  *
-{
-text-align: center !important;
-margin: auto !important;
+  100% {
+    left: -100%;
+  }
 }

@@ -14,7 +14,9 @@ router.get('/', function (req, res, next) {
   storage.name = "changed"
   console.log(name);
 
-  res.render('index', { title: 'Oort' });
+  res.render('index', {
+    title: 'Oort'
+  });
 });
 
 router.get('/playlists', function (req, res, next) {
@@ -25,8 +27,7 @@ router.get('/playlists', function (req, res, next) {
       clientSecret: '80fba228fc5b4a8397f2462ea6f7cbf8',
       clientId: '5f2ea699b7a548f68001465a874ef9f0'
     });
-  }
-  catch{
+  } catch (e) {
     res.redirect('/');
   }
 
@@ -55,7 +56,10 @@ router.get('/playlists', function (req, res, next) {
       var playlistListingAll = [];
 
 
-      var playlistFetch = spotify.spotifyApi.getUserPlaylists({ limit: 50, offset: 50 })
+      var playlistFetch = spotify.spotifyApi.getUserPlaylists({
+          limit: 50,
+          offset: 50
+        })
         .then(function (data) {
           //console.log('Retrieved playlists', data.body);
           console.log('Retrieved', data.body.items.length, 'playlists.')
@@ -68,12 +72,10 @@ router.get('/playlists', function (req, res, next) {
             if (ownerID == userID) {
               //console.log("Owned by current user!:", data.body.items[i].name);
               playlistListing.push(data.body.items[i]);
-            }
-            else if (data.body.items[0].collaborative) {
+            } else if (data.body.items[0].collaborative) {
               //console.log("Playlist is Collaborative!:", data.body.items[i].name);
               playlistListing.push(data.body.items[i]);
-            }
-            else {
+            } else {
               //console.log("ID:", ownerID, ":", data.body.items[i]);
             }
 
@@ -91,7 +93,11 @@ router.get('/playlists', function (req, res, next) {
 
       playlistFetch.then(function (pfetch) {
         console.log("Found", pfetch.length, "editable playlists total- collaborative, or owned by ID", userID);
-        res.render('playlists', { title: 'Playlists', names: pfetch, user_id: userID });
+        res.render('playlists', {
+          title: 'Playlists',
+          names: pfetch,
+          user_id: userID
+        });
       });
 
     },

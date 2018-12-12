@@ -7,7 +7,9 @@ block content
       title= "Spotify Voting"
     body
       h1 Spotify Voting Page!
-      h2 #{currentSong}
+      p -
+      h3  Now Playing:
+      | <div class="marquee"> <div><span> #{currentSong} </span><span> #{currentSong} </span></div></div> 
       #container.col
         h1 Room ID = #{roomID}
 
@@ -17,7 +19,7 @@ block content
 
   script.
 
-    setTimeout(function () { location.reload(true); }, 500);
+    //setTimeout(function () { location.reload(true); }, 500);
 
     // <![CDATA[
     var colour="#FFFFFF";
