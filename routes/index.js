@@ -57,8 +57,8 @@ router.get('/playlists', function (req, res, next) {
 
 
       var playlistFetch = spotify.spotifyApi.getUserPlaylists({
-          limit: 50,
-          offset: 50
+          //limit: 50,
+          //offset: 50
         })
         .then(function (data) {
           //console.log('Retrieved playlists', data.body);
