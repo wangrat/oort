@@ -2,8 +2,10 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Here is a list of available playlists! <br> (Owned by user with ID '#{user_id}', or collaborative)
 
   each element in names
+    <br>
     form(action='/playlists/' + element.id method='get')
       button(type='submit') #{element.name}
+    
