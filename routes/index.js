@@ -115,10 +115,11 @@ router.get('/spotify', function (req, res, next) {
 
   var scopes = ['playlist-read-private', 'playlist-modify-private', 'playlist-modify-public', 'user-read-playback-state'];
 
-  var credentials = {
-    clientId: '5f2ea699b7a548f68001465a874ef9f0',
-    redirectUri: 'http://' + req.hostname + ':' + req.socket.localPort + '/playlists'
-  };
+
+    var credentials = {
+        clientId: '5f2ea699b7a548f68001465a874ef9f0',
+        redirectUri: 'http://' + req.hostname + '/playlists'
+    };
 
   spotify.spotifyApi = new SpotifyWebApi(credentials);
 
